@@ -13,108 +13,66 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Wpf1125ListsSample.Properties;
+using Microsoft.Win32;
+using Resume.Properties;
 
-namespace Wpf1125ListsSample
+namespace Resume
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private Student selectedStudent;
+        private Worker selectedWorker;
 
-        public List<Student> Students { get; set; }
-        public Student SelectedStudent
+        public List<Worker> Workers { get; set; }
+        public Worker SelectedWorker
         {
-            get => selectedStudent;
+            get => selectedWorker;
             set
             {
-                selectedStudent = value;
+                selectedWorker = value;
                 PropertyChanged?.Invoke(this,
-                    new PropertyChangedEventArgs(nameof(SelectedStudent))); 
+                    new PropertyChangedEventArgs(nameof(SelectedWorker))); 
             }
         }
 
         public MainWindow()
         {
             InitializeComponent();
-            
-            Students = new List<Student>();
-            Students.Add(new Student
-            {
-                FirstName = "Алексей",
-                LastName = "Пушкин",
-                Birthday = DateTime.Parse("06.07.1987"),
-                Group = 1145,
-                Img = Properties.Resources.mini_pin
-            }) ;
-            Students.Add(new Student
-            {
-                FirstName = "Тамара",
-                LastName = "Петрова",
-                Birthday = DateTime.Parse("02.10.2000"),
-                Group = 1115,
-                Img = Properties.Resources.mini_pin
-            });
-            DataContext = this;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Select(object sender, RoutedEventArgs e)
         {
-            string message = SelectedStudent == null ?
-                "Ничего не выбрано" : 
-                SelectedStudent.ToString();
-            MessageBox.Show(message);
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            Nullable<bool> result = openFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                string filename = openFileDialog.FileName;
+            }
         }
-
-
-        // Тема: Списки в WPF
-        // существует несколько стандартных
-        // компонентов для вывода списка:
-        // 1. ComboBox - выпадающий список
-        // 2. ListBox  - одноколоночный список
-        // 3. ListView - многоколоночный список
-        // 4. DataGrid - редактор для множества
-        // записей с разбитием по колонкам
     }
 
-    public class Student
+    public class Worker
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int Group { get; set; }
-        public DateTime Birthday { get; set; }
-
+        public int Age { get; set; }
         public byte[] Img { get; set; }
 
         public override string ToString()
         {
-            return $"{LastName} {FirstName} {Group} {Birthday.ToShortDateString()}"; ;
+            return $"{LastName} {FirstName} {Age}"; ;
         }
-        //public string Info { get =>
-        //        $"{LastName} {FirstName} {Group} {Birthday.ToShortDateString()}";
-        //}
     }
-    // Если доступно наследование 
-    // и недоступно редактирование Student
-    //public class StudentView : Student
-    //{
-    //    public string Info
-    //    {
-    //        get =>
-    //                $"{LastName} {FirstName} {Group} {Birthday.ToShortDateString()}";
-    //    }
-    //}
-
-    // Либо декоратор и тп
-    public class StudentView 
+    public class WorkerView 
     {
-        private readonly Student student;
+        private readonly Worker student;
 
-        public StudentView(Student student)
+        public WorkerView(Worker student)
         {
             this.student = student;
         }
@@ -122,7 +80,12 @@ namespace Wpf1125ListsSample
         public string Info
         {
             get =>
-                    $"{student.LastName} {student.FirstName} {student.Group} {student.Birthday.ToShortDateString()}";
+                    $"{student.LastName} {student.FirstName} {student.Age}";
         }
     }
 }
+/*
+В окне MainWindow сделать интерфейс для заполнения резюме о приеме на работу. 
+Должна быть кнопка со стилем MainButton - это кнопка Сохранить
+Должна быть кнопка, по которой происходит открытие диалога с выбором картинки (OpenFileDialog). Выбранная картинка отображается в компоненте Image
+На всех элементах должна быть привязка для ввода/вывода данных (на Image тоже, байтовый массив)*/

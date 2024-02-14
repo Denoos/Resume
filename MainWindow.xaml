@@ -1,4 +1,4 @@
-﻿<Window x:Class="Wpf1125ListsSample.MainWindow"
+﻿<Window x:Class="Resume.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,23 +6,39 @@
         xmlns:local="clr-namespace:Wpf1125ListsSample"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ComboBox ItemsSource="{Binding Students}"
-                  SelectedItem="{Binding SelectedStudent}">
+
+        <Button Style="{StaticResource MainButton}" Content="Save" Grid.Column="1" Grid.Row="2" Click="Sve"/>
+        <Button Style="{StaticResource NotMainButton}" Content="Select Image" Grid.Column="2" Grid.Row="2" Click="Select"/>
+
+        <TextBox x:Name="myTextBox" Style="{StaticResource MainTextBlock}" Background="AliceBlue" Text="What is Your name?" Grid.Column="0" Grid.Row="1"/>
+        <CheckBox Style="{StaticResource MainCheckBox}" Background="AliceBlue" Content="Ure accept all config?" Grid.Column="0" Grid.Row="0"/>
+        <Label Style="{StaticResource MainLabel}" Content="Choose ur photo:" Grid.Column="1" Grid.Row="1"/>
+
+    </Grid>
+  
+        </Grid.RowDefinitions>
+        <ComboBox ItemsSource="{Binding Workers}"
+                  SelectedItem="{Binding SelectedWorker}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Image Width="100" Source="{Binding Img}"/>
                         <Label Content="{Binding FirstName}"/>
                         <Label Content="{Binding LastName}"/>
-                        <Label Content="{Binding Group}"/>
+                        <Label Content="{Binding Age}"/>
                         <TextBlock Margin="5" Text="{Binding Birthday,
                             StringFormat=dd.MM.yyyy}"/>
                     </StackPanel>
@@ -30,15 +46,15 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Students}"
-                  SelectedItem="{Binding SelectedStudent}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Workers}"
+                  SelectedItem="{Binding SelectedWorker}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/mini_pin.jpg" />
                         <Label Content="{Binding FirstName}"/>
                         <Label Content="{Binding LastName}"/>
-                        <Label Content="{Binding Group}"/>
+                        <Label Content="{Binding Age}"/>
                         <TextBlock Margin="5" Text="{Binding Birthday,
             StringFormat=dd.MM.yyyy}"/>
                     </StackPanel>
@@ -51,8 +67,8 @@
             </ListBox.ItemsPanel>
         </ListBox>
 
-        <ListView Grid.Row="2" ItemsSource="{Binding Students}"
-                  SelectedItem="{Binding SelectedStudent}"
+        <ListView Grid.Row="2" ItemsSource="{Binding Workers}"
+                  SelectedItem="{Binding SelectedWorker}"
                   SelectionMode="Multiple"
                   >
             <ListView.View>
@@ -64,10 +80,10 @@
                     <GridViewColumn Header="День рождения"
                         DisplayMemberBinding="{Binding Birthday, StringFormat=dd.MM.yyyy}"/>
                     <GridViewColumn Header="Группа">
-                        <!--DisplayMemberBinding="{Binding Group}"-->
+                        <!--DisplayMemberBinding="{Binding Age}"-->
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Group}"/>
+                                <TextBox Text="{Binding Age}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -75,14 +91,14 @@
             </ListView.View>
         </ListView>
 
-        <DataGrid Grid.Row="3" ItemsSource="{Binding Students}"
+        <DataGrid Grid.Row="3" ItemsSource="{Binding Workers}"
                   AutoGenerateColumns="False"
-                  SelectedItem="{Binding SelectedStudent}">
+                  SelectedItem="{Binding SelectedWorker}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" />
                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" />
                 <DataGridTextColumn Header="День рождения" Binding="{Binding Birthday}" />
-                <DataGridTextColumn Header="Группа" Binding="{Binding Group}" />
+                <DataGridTextColumn Header="Группа" Binding="{Binding Age}" />
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="test selected"

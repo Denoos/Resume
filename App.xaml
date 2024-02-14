@@ -4,6 +4,63 @@
              xmlns:local="clr-namespace:Wpf1125ListsSample"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+
+            <Style x:Key="NotMainButton"
+ TargetType="Button">
+
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Margin" Value="20"/>
+                <Setter Property="Padding" Value="20"/>
+
+            </Style>
+
+            <Style x:Key="MainButton"
+TargetType="Button">
+
+                <Setter Property="Background" Value="Red"/>
+                <Setter Property="FontSize" Value="35"/>
+                <Setter Property="Margin" Value="35"/>
+                <Setter Property="Padding" Value="5"/>
+
+            </Style>
+
+            <Style x:Key="MainTextBlock"
+ TargetType="TextBox">
+
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Padding" Value="10"/>
+
+            </Style>
+
+            <Style x:Key="MainLabel"
+ TargetType="Label">
+
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Padding" Value="25"/>
+
+            </Style>
+
+            <Style x:Key="MainRadioButton"
+ TargetType="RadioButton">
+
+                <Setter Property="FontSize" Value="5"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="5"/>
+
+            </Style>
+
+            <Style x:Key="MainCheckBox"
+ TargetType="CheckBox">
+
+                <Setter Property="FontSize" Value="40"/>
+                <Setter Property="Margin" Value="3"/>
+                <Setter Property="Padding" Value="40"/>
+
+            </Style>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
